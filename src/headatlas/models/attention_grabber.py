@@ -76,14 +76,14 @@ class AttentionGrabber:
                         p = int(pos)
                         if p < w.shape[2]:
                             row = w[0, :, p, :]
-                            row = row[:, cols] if cols is not None else row[:fk]
+                            row = row[:, cols] if cols is not None else row[:, :fk]
                             state["buf"][li][label].append(row.float().cpu())
                 else:
                     p = int(w.shape[3]) - 1
                     for label, pos in state["rows"].items():
                         if isinstance(pos, int) and pos == p:
                             row = w[0, :, 0, :]
-                            row = row[:, cols] if cols is not None else row[:fk]
+                            row = row[:, cols] if cols is not None else row[:, :fk]
                             state["buf"][li][label].append(row.float().cpu())
             else:
                 if w.shape[2] > 1 and state["row_mask"] is not None:
