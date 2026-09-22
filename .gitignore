@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+outputs/
+data/
+figures/*.png
+figures/*.pdf
+*.npz
+*.pt
+.ipynb_checkpoints/
+HF_HOME/

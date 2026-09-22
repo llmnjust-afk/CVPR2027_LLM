@@ -1,0 +1,12 @@
+torch>=2.3
+transformers>=4.49
+accelerate>=0.30
+datasets>=2.19
+scikit-learn>=1.4
+scipy
+numpy
+pillow
+matplotlib
+pyyaml
+tqdm
+umap-learn
