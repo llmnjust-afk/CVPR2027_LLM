@@ -75,7 +75,7 @@ def occlude_sample(sample, seed=0, fill=0):
     if not sample.boxes:
         return None
     x1, y1, x2, y2 = [int(v) for v in sample.boxes[0]]
-    arr = np.asarray(img)
+    arr = np.array(img)
     arr[y1:y2, x1:x2, :] = fill
     out = ProbeSample(id=sample.id + "_occl", prompt=sample.prompt,
                       image=Image.fromarray(arr), boxes=sample.boxes,
