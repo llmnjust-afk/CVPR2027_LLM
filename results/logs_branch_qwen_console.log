@@ -1207,3 +1207,16 @@ model=Qwen/Qwen2.5-VL-7B-Instruct layers=28 heads=28 family=qwen2.5vl
   ocr_synth ocr_399 0.2s
 [transformers] The following generation flags are not valid and may be ignored: ['output_attentions']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
 DONE outputs/raw/Qwen_Qwen2_5-VL-7B-Instruct
+sync_results: pushed eceff97 pipeline[Qwen_Qwen2_5-VL-7B-Instruct]: S1 probes done
+sync_results: done
+[2026-09-22 10:42:27] STAGE taxonomy (per-model)
+Traceback (most recent call last):
+  File "/data/lab/CVPR2027_LLM/scripts/run_taxonomy.py", line 64, in <module>
+    results[mid] = process_model(raw_dir, os.path.join(args.out_root, s), probes)
+  File "/data/lab/CVPR2027_LLM/scripts/run_taxonomy.py", line 22, in process_model
+    feats, keys = collect_model_fingerprints(raw_dir, probes,
+  File "/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/fingerprints.py", line 143, in collect_model_fingerprints
+    continue
+  File "/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/fingerprints.py", line 25, in compute_probe_features
+    rows_key = next(k for k in ("rows", "rows_attr", "rows_base", "rows16")
+KeyError: 'rows'

@@ -4075,3 +4075,31 @@ Traceback (most recent call last):
   File "/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/fingerprints.py", line 25, in compute_probe_features
     L, H = npz["rows"].shape[0], npz["rows"].shape[1]
 KeyError: 'rows'
+[2026-09-22 10:42:43] waiting for data/.prepped
+[2026-09-22 10:42:43] data ready; starting branch for llava-hf/llava-1_5-7b-hf on cuda:1
+[2026-09-22 10:42:43] probes already done; skipping
+[2026-09-22 10:42:43] STAGE taxonomy (per-model)
+[2026-09-22 10:42:50] waiting for data/.prepped
+[2026-09-22 10:42:50] data ready; starting branch for llava-hf/llava-1.5-7b-hf on cuda:1
+[2026-09-22 10:42:50] probes already done; skipping
+[2026-09-22 10:42:50] STAGE taxonomy (per-model)
+Traceback (most recent call last):
+  File "/data/lab/CVPR2027_LLM/scripts/run_taxonomy.py", line 64, in <module>
+    results[mid] = process_model(raw_dir, os.path.join(args.out_root, s), probes)
+  File "/data/lab/CVPR2027_LLM/scripts/run_taxonomy.py", line 22, in process_model
+    feats, keys = collect_model_fingerprints(raw_dir, probes,
+  File "/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/fingerprints.py", line 149, in collect_model_fingerprints
+    X = np.stack([all_feats[k] for k in keys], axis=-1)
+  File "/usr/local/lib/python3.10/dist-packages/numpy/_core/shape_base.py", line 460, in stack
+    raise ValueError('all input arrays must have the same shape')
+ValueError: all input arrays must have the same shape
+Traceback (most recent call last):
+  File "/data/lab/CVPR2027_LLM/scripts/run_taxonomy.py", line 64, in <module>
+    results[mid] = process_model(raw_dir, os.path.join(args.out_root, s), probes)
+  File "/data/lab/CVPR2027_LLM/scripts/run_taxonomy.py", line 22, in process_model
+    feats, keys = collect_model_fingerprints(raw_dir, probes,
+  File "/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/fingerprints.py", line 149, in collect_model_fingerprints
+    X = np.stack([all_feats[k] for k in keys], axis=-1)
+  File "/usr/local/lib/python3.10/dist-packages/numpy/_core/shape_base.py", line 460, in stack
+    raise ValueError('all input arrays must have the same shape')
+ValueError: all input arrays must have the same shape
