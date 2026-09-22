@@ -4230,3 +4230,4 @@ vcd random 0.0
 vcd popular 0.0
 vcd adversarial 0.0
 DONE outputs/rebias/llava-hf_llava-1_5-7b-hf
+[2026-09-22 12:13:26] PIPELINE_DONE llava-hf_llava-1_5-7b-hf

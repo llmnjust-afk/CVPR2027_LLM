@@ -1,0 +1,4 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 732.73it/s]
+Loading weights:   0%|          | 0/729 [00:00<?, ?it/s]Loading weights:  42%|████▏     | 305/729 [00:00<00:00, 3034.89it/s]Loading weights:  84%|████████▎ | 609/729 [00:00<00:00, 2942.86it/s]Loading weights: 100%|██████████| 729/729 [00:00<00:00, 2968.30it/s]
+Terminated

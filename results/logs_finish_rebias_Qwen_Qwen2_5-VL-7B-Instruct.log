@@ -1,0 +1,35 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 738.23it/s]
+Loading weights:   0%|          | 0/729 [00:00<?, ?it/s]Loading weights:  43%|████▎     | 310/729 [00:00<00:00, 3097.54it/s]Loading weights:  85%|████████▌ | 620/729 [00:00<00:00, 2963.27it/s]Loading weights: 100%|██████████| 729/729 [00:00<00:00, 2972.40it/s]
+Traceback (most recent call last):
+  File "/data/lab/CVPR2027_LLM/scripts/run_rebias.py", line 80, in <module>
+    preds.append(parse_yes_no(vcd_generate(wrapper, s, alpha=1.0)))
+  File "/data/lab/CVPR2027_LLM/scripts/../src/headatlas/eval/contrastive.py", line 35, in vcd_generate
+    out_c = wrapper.model(**c_inputs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/generic.py", line 939, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py", line 1378, in forward
+    outputs = self.model(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/generic.py", line 939, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py", line 1237, in forward
+    position_ids = self.compute_3d_position_ids(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py", line 1165, in compute_3d_position_ids
+    position_ids, rope_deltas = self.get_rope_index(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py", line 1029, in get_rope_index
+    input_token_type = input_token_type[attention_mask[batch_idx].bool()]
+IndexError: The shape of the mask [421] at index 0 does not match the shape of the indexed tensor [420] at index 0
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 732.73it/s]
+Loading weights:   0%|          | 0/729 [00:00<?, ?it/s]Loading weights:  42%|████▏     | 305/729 [00:00<00:00, 3034.89it/s]Loading weights:  84%|████████▎ | 609/729 [00:00<00:00, 2942.86it/s]Loading weights: 100%|██████████| 729/729 [00:00<00:00, 2968.30it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 699.28it/s]
+Loading weights:   0%|          | 0/729 [00:00<?, ?it/s]Loading weights:  42%|████▏     | 304/729 [00:00<00:00, 3037.87it/s]Loading weights:  83%|████████▎ | 608/729 [00:00<00:00, 2907.59it/s]Loading weights: 100%|██████████| 729/729 [00:00<00:00, 2935.18it/s]

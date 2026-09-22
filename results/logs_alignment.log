@@ -1,2 +1,3 @@
 scripts/sync_watchdog.sh: line 21: python: command not found
 scripts/sync_watchdog.sh: line 21: python: command not found
+scripts/sync_watchdog.sh: line 21: python: command not found
