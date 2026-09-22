@@ -17,9 +17,9 @@
     "p8_mass_when_correct"
   ],
   "role_counts": {
-    "grounding": 92,
-    "unassigned": 498,
     "sink": 103,
-    "reroute": 91
+    "unassigned": 498,
+    "reroute": 91,
+    "grounding": 92
   }
 }

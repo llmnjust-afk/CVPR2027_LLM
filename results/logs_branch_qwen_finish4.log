@@ -5,3 +5,5 @@ vcd random 0.8936170212765957
 vcd popular 0.8400000000000001
 vcd adversarial 0.8400000000000001
 DONE outputs/rebias/Qwen_Qwen2_5-VL-7B-Instruct
+sync_results: pushed 61cd334 S3 rebias done (vcd finish)
+sync_results: done

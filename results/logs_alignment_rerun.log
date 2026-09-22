@@ -1,0 +1,62 @@
+/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/fingerprints.py:79: RuntimeWarning: invalid value encountered in divide
+  "p5_sink_stability": 1.0 - (mass.std(axis=0) / np.maximum(mass.mean(axis=0), 1e-8)),
+/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/taxonomy.py:27: RuntimeWarning: Mean of empty slice
+  mu = np.nanmean(X[m], axis=0)
+/usr/local/lib/python3.10/dist-packages/numpy/lib/_nanfunctions_impl.py:2019: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/taxonomy.py:27: RuntimeWarning: Mean of empty slice
+  mu = np.nanmean(X[m], axis=0)
+/usr/local/lib/python3.10/dist-packages/numpy/lib/_nanfunctions_impl.py:2019: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+{
+  "k": 3,
+  "silhouette": 0.16022705664019746,
+  "n_heads": 784,
+  "features": [
+    "p1_box_iou",
+    "p1_entropy",
+    "p1_mass_in_box",
+    "p1_pointing",
+    "p1_topk_prec",
+    "p3_cond_kld",
+    "p5_head_entropy",
+    "p5_sink16",
+    "p5_sink_stability",
+    "p6_occluded_mass",
+    "p6_reroute_kld",
+    "p8_mass_when_correct"
+  ],
+  "role_counts": {
+    "sink": 103,
+    "unassigned": 498,
+    "reroute": 91,
+    "grounding": 92
+  }
+}
+{
+  "k": 4,
+  "silhouette": 0.15723635673676167,
+  "n_heads": 1024,
+  "features": [
+    "p1_box_iou",
+    "p1_entropy",
+    "p1_mass_in_box",
+    "p1_pointing",
+    "p1_topk_prec",
+    "p3_cond_kld",
+    "p5_head_entropy",
+    "p5_sink16",
+    "p5_sink_stability",
+    "p6_occluded_mass",
+    "p6_reroute_kld",
+    "p8_mass_when_correct"
+  ],
+  "role_counts": {
+    "cond": 113,
+    "reroute": 75,
+    "sink": 53,
+    "unassigned": 673,
+    "grounding": 110
+  }
+}
+wrote outputs/taxonomy/cross_model_alignment.json

@@ -18,9 +18,9 @@
   ],
   "role_counts": {
     "cond": 113,
-    "unassigned": 673,
-    "grounding": 110,
+    "reroute": 75,
     "sink": 53,
-    "reroute": 75
+    "unassigned": 673,
+    "grounding": 110
   }
 }
