@@ -21,13 +21,13 @@ ROLE_FEATURES = {
 
 
 def layerwise_z(X, layer_ids):
-    Z = np.zeros_like(X, dtype=np.float64)
+    Z = np.zeros(X.shape, dtype=np.float64)
     for l in np.unique(layer_ids):
         m = layer_ids == l
-        mu = X[m].mean(axis=0)
-        sd = X[m].std(axis=0) + 1e-8
+        mu = np.nanmean(X[m], axis=0)
+        sd = np.nanstd(X[m], axis=0) + 1e-8
         Z[m] = (X[m] - mu) / sd
-    return Z
+    return np.nan_to_num(Z, nan=0.0, posinf=0.0, neginf=0.0)
 
 
 def cluster_heads(X, layer_ids, k_min=4, k_max=10, seed=0):
@@ -76,7 +76,7 @@ def plot_embedding(Z, labels, layer_ids, out_png, method="pca"):
     sc = plt.scatter(coords[:, 0], coords[:, 1], c=labels, cmap="tab10", s=8)
     plt.title(f"Head Atlas ({method}), colored by cluster")
     plt.xlabel("dim 1"); plt.ylabel("dim 2")
-    plt.colorbar(sc, name="cluster")
+    plt.colorbar(sc)
     os.makedirs(os.path.dirname(out_png), exist_ok=True)
     plt.savefig(out_png, dpi=160)
     plt.close()
