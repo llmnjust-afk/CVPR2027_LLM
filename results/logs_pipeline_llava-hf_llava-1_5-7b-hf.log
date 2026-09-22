@@ -4153,3 +4153,11 @@ TypeError: Colorbar.__init__() got an unexpected keyword argument 'name'
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
 Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]Fetching 3 files: 100%|██████████| 3/3 [00:00<00:00, 811.38it/s]
 Loading weights:   0%|          | 0/686 [00:00<?, ?it/s]Loading weights:   4%|▍         | 29/686 [00:00<00:02, 238.28it/s]Loading weights:   8%|▊         | 53/686 [00:00<00:03, 175.52it/s]Loading weights:  10%|█         | 72/686 [00:00<00:03, 154.10it/s]Loading weights:  13%|█▎        | 88/686 [00:00<00:03, 154.97it/s]Loading weights:  15%|█▌        | 104/686 [00:00<00:04, 134.85it/s]Loading weights:  18%|█▊        | 121/686 [00:00<00:04, 133.58it/s]Loading weights:  20%|█▉        | 135/686 [00:00<00:04, 134.77it/s]Loading weights:  22%|██▏       | 149/686 [00:01<00:04, 131.63it/s]Loading weights:  24%|██▍       | 166/686 [00:01<00:04, 123.23it/s]Loading weights:  27%|██▋       | 182/686 [00:01<00:03, 132.10it/s]Loading weights:  29%|██▊       | 196/686 [00:01<00:03, 124.44it/s]Loading weights:  31%|███       | 211/686 [00:01<00:03, 127.71it/s]Loading weights:  33%|███▎      | 226/686 [00:01<00:03, 132.85it/s]Loading weights:  35%|███▌      | 243/686 [00:01<00:03, 141.58it/s]Loading weights:  38%|███▊      | 258/686 [00:01<00:03, 116.73it/s]Loading weights:  40%|███▉      | 271/686 [00:02<00:03, 118.68it/s]Loading weights:  41%|████▏     | 284/686 [00:02<00:03, 118.78it/s]Loading weights:  71%|███████▏  | 489/686 [00:02<00:00, 628.16it/s]Loading weights: 100%|██████████| 686/686 [00:02<00:00, 294.18it/s]
+baseline                                                mass=0.0263
+grounding      [(0, 2), (0, 13), (0, 20)]               mass=0.0261
+cond           [(0, 7), (0, 22), (0, 23)]               mass=0.0263
+reroute        [(0, 21), (0, 25), (1, 49)]              mass=0.0261
+unassigned     [(0, 0), (0, 1), (0, 3)]                 mass=0.0280
+random         [(3, 22), (18, 21), (21, 7)]             mass=0.0261
+sink           [(0, 9), (0, 28), (0, 31)]               mass=0.0265
+DONE outputs/ablation/llava-hf_llava-1_5-7b-hf/synth_grounding_zero.csv
