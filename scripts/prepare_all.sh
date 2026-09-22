@@ -33,11 +33,28 @@ EOF
     fi
 fi
 
-log "preparing POPE splits"
-if [ -f "$INST" ]; then
+log "preparing POPE splits (raw github primary, HF fallback, outer retry)"
+pope_missing() {
+    for s in random popular adversarial; do
+        [ -f "$DATA/pope_$s.jsonl" ] || return 0
+    done
+    return 1
+}
+if pope_missing; then
+    if [ -f "$INST" ]; then
+        python3 scripts/prepare_data.py --data "$DATA" --pope --coco-instances "$INST" 2>&1 | tee -a logs/prepare_data.log
+    else
+        python3 scripts/prepare_data.py --data "$DATA" --pope 2>&1 | tee -a logs/prepare_data.log
+    fi
+fi
+if pope_missing; then
+    log "POPE via HF mirror (lmms-lab-encoder/POPE)"
+    python3 scripts/prepare_pope_hf.py --data "$DATA" --instances "$INST" 2>&1 | tee -a logs/prepare_data.log
+fi
+if pope_missing; then
+    log "network flap? retrying raw POPE once more after 45s"
+    sleep 45
     python3 scripts/prepare_data.py --data "$DATA" --pope --coco-instances "$INST" 2>&1 | tee -a logs/prepare_data.log
-else
-    python3 scripts/prepare_data.py --data "$DATA" --pope 2>&1 | tee -a logs/prepare_data.log
 fi
 
 REFS="$DATA/refs(unc).pkl"
