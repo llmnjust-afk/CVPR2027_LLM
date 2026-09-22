@@ -1210,3 +1210,13 @@ DONE outputs/raw/llava-hf_llava-1_5-7b-hf
 sync_results: pushed 17ab4e1 pipeline[llava-hf_llava-1_5-7b-hf]: S1 probes done
 sync_results: done
 [2026-09-22 10:37:50] STAGE taxonomy (per-model)
+Traceback (most recent call last):
+  File "/data/lab/CVPR2027_LLM/scripts/run_taxonomy.py", line 64, in <module>
+    results[mid] = process_model(raw_dir, os.path.join(args.out_root, s), probes)
+  File "/data/lab/CVPR2027_LLM/scripts/run_taxonomy.py", line 22, in process_model
+    feats, keys = collect_model_fingerprints(raw_dir, probes,
+  File "/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/fingerprints.py", line 143, in collect_model_fingerprints
+    feats = compute_probe_features(probe, npz)
+  File "/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/fingerprints.py", line 25, in compute_probe_features
+    L, H = npz["rows"].shape[0], npz["rows"].shape[1]
+KeyError: 'rows'

@@ -1206,3 +1206,4 @@ model=Qwen/Qwen2.5-VL-7B-Instruct layers=28 heads=28 family=qwen2.5vl
   ocr_synth ocr_398 0.2s
   ocr_synth ocr_399 0.2s
 [transformers] The following generation flags are not valid and may be ignored: ['output_attentions']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+DONE outputs/raw/Qwen_Qwen2_5-VL-7B-Instruct

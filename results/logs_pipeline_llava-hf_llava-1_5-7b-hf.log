@@ -4065,3 +4065,13 @@ model=llava-hf/llava-1.5-7b-hf layers=32 heads=32 family=llava
 [transformers] The following generation flags are not valid and may be ignored: ['output_attentions']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
 DONE outputs/raw/llava-hf_llava-1_5-7b-hf
 [2026-09-22 10:37:50] STAGE taxonomy (per-model)
+Traceback (most recent call last):
+  File "/data/lab/CVPR2027_LLM/scripts/run_taxonomy.py", line 64, in <module>
+    results[mid] = process_model(raw_dir, os.path.join(args.out_root, s), probes)
+  File "/data/lab/CVPR2027_LLM/scripts/run_taxonomy.py", line 22, in process_model
+    feats, keys = collect_model_fingerprints(raw_dir, probes,
+  File "/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/fingerprints.py", line 143, in collect_model_fingerprints
+    feats = compute_probe_features(probe, npz)
+  File "/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/fingerprints.py", line 25, in compute_probe_features
+    L, H = npz["rows"].shape[0], npz["rows"].shape[1]
+KeyError: 'rows'
