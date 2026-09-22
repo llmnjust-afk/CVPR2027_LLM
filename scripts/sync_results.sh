@@ -22,6 +22,7 @@ copy_artifacts outputs/taxonomy
 copy_artifacts outputs/ablation
 copy_artifacts outputs/patching
 copy_artifacts outputs/rebias
+copy_artifacts outputs/bootstrap
 for lg in logs/*.log; do
     [ -e "$lg" ] || break
     cp -f "$lg" "results/logs_$(basename "$lg")"
