@@ -4176,3 +4176,42 @@ Traceback (most recent call last):
   File "/data/lab/CVPR2027_LLM/scripts/../src/headatlas/interventions/patching.py", line 50, in run_patching
     v = vec.reshape(editor.n_heads, editor.head_dim)[h]
 IndexError: index 45 is out of bounds for dimension 0 with size 28
+[2026-09-22 11:26:40] waiting for data/.prepped
+[2026-09-22 11:26:40] data ready; starting branch for Qwen/Qwen2.5-VL-7B-Instruct on cuda:0
+[2026-09-22 11:26:40] probes already done; skipping
+[2026-09-22 11:26:40] STAGE taxonomy (per-model)
+/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/fingerprints.py:79: RuntimeWarning: invalid value encountered in divide
+  "p5_sink_stability": 1.0 - (mass.std(axis=0) / np.maximum(mass.mean(axis=0), 1e-8)),
+/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/taxonomy.py:27: RuntimeWarning: Mean of empty slice
+  mu = np.nanmean(X[m], axis=0)
+/usr/local/lib/python3.10/dist-packages/numpy/lib/_nanfunctions_impl.py:2019: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/taxonomy.py:27: RuntimeWarning: Mean of empty slice
+  mu = np.nanmean(X[m], axis=0)
+/usr/local/lib/python3.10/dist-packages/numpy/lib/_nanfunctions_impl.py:2019: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+{
+  "k": 3,
+  "silhouette": 0.16022705664019746,
+  "n_heads": 784,
+  "features": [
+    "p1_box_iou",
+    "p1_entropy",
+    "p1_mass_in_box",
+    "p1_pointing",
+    "p1_topk_prec",
+    "p3_cond_kld",
+    "p5_head_entropy",
+    "p5_sink16",
+    "p5_sink_stability",
+    "p6_occluded_mass",
+    "p6_reroute_kld",
+    "p8_mass_when_correct"
+  ],
+  "role_counts": {
+    "grounding": 92,
+    "unassigned": 498,
+    "sink": 103,
+    "reroute": 91
+  }
+}
