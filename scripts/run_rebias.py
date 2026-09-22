@@ -25,28 +25,50 @@ if __name__ == "__main__":
     ap.add_argument("--alphas", default="0.5,1,2")
     ap.add_argument("--max-per-split", type=int, default=200)
     ap.add_argument("--vcd", action="store_true")
+    ap.add_argument("--vcd-only", action="store_true",
+                    help="skip main sweep; merge existing split CSVs + run VCD")
     ap.add_argument("--device", default="cuda:0")
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
     out = args.out or os.path.join("outputs", "rebias", slug(args.model))
     os.makedirs(out, exist_ok=True)
-    wrapper = VLMWrapper(args.model, device=args.device)
-    L, H = n_layers_heads(wrapper.model)
-    lam = build_lambda_from_heads_csv(args.heads_csv, L, H)
-    alphas = [float(a) for a in args.alphas.split(",")]
+    wrapper = None
+    lam = None
+    alphas = []
+    splits = None
+    if args.vcd_only:
+        wrapper = None
+        L, H = None, None
+    else:
+        wrapper = VLMWrapper(args.model, device=args.device)
+        L, H = n_layers_heads(wrapper.model)
+        lam = build_lambda_from_heads_csv(args.heads_csv, L, H)
+        alphas = [float(a) for a in args.alphas.split(",")]
     splits = loaders.pope_splits(args.data)
     all_rows = []
-    for split in args.splits.split(","):
-        if split not in splits:
-            continue
-        samples = subsample(splits[split], args.max_per_split, seed=0)
-        rows = run_rebias(wrapper, samples, lam, alphas,
-                          os.path.join(out, f"{split}.csv"))
-        for r in rows:
-            r["split"] = split
-            all_rows.append(r)
-        print(split, "done")
-    if args.vcd:
+    if args.vcd_only:
+        for split in args.splits.split(","):
+            p = os.path.join(out, f"{split}.csv")
+            if not os.path.exists(p):
+                continue
+            with open(p) as f:
+                for r in csv.DictReader(f):
+                    r["split"] = split
+                    all_rows.append(r)
+    else:
+        for split in args.splits.split(","):
+            if split not in splits:
+                continue
+            samples = subsample(splits[split], args.max_per_split, seed=0)
+            rows = run_rebias(wrapper, samples, lam, alphas,
+                              os.path.join(out, f"{split}.csv"))
+            for r in rows:
+                r["split"] = split
+                all_rows.append(r)
+            print(split, "done")
+    if args.vcd or args.vcd_only:
+        if wrapper is None:
+            wrapper = VLMWrapper(args.model, device=args.device)
         from headatlas.eval.contrastive import vcd_generate
         from headatlas.eval.pope_runner import parse_yes_no, pope_metrics
         for split in args.splits.split(","):
