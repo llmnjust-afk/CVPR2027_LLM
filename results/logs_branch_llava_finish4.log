@@ -5,3 +5,5 @@ vcd random 0.6842105263157895
 vcd popular 0.6842105263157895
 vcd adversarial 0.6842105263157895
 DONE outputs/rebias/llava-hf_llava-1_5-7b-hf
+sync_results: pushed d8dcff2 S3 rebias done (vcd finish)
+sync_results: done

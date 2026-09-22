@@ -1,3 +1,7 @@
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
 Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 1170.42it/s]
 Loading weights:   0%|          | 0/729 [00:00<?, ?it/s]Loading weights:  43%|████▎     | 313/729 [00:00<00:00, 3087.76it/s]Loading weights:  88%|████████▊ | 644/729 [00:00<00:00, 3205.83it/s]Loading weights: 100%|██████████| 729/729 [00:00<00:00, 3219.57it/s]
+vcd random 0.8936170212765957
+vcd popular 0.8400000000000001
+vcd adversarial 0.8400000000000001
+DONE outputs/rebias/Qwen_Qwen2_5-VL-7B-Instruct
