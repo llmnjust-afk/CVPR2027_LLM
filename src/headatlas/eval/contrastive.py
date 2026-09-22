@@ -48,11 +48,19 @@ def vcd_generate(wrapper, sample, alpha=1.0, beta=0.1, noise_std=0.3,
             d_inputs["input_ids"] = torch.cat([seq_d, nxt.to(seq_d.device)], dim=-1)
             seq_c = c_inputs["input_ids"]
             seq_d = d_inputs["input_ids"]
-            for k in ("attention_mask",):
-                for d in (c_inputs, d_inputs):
-                    if d.get(k) is not None:
-                        one = torch.ones((d[k].shape[0], 1),
-                                         dtype=d[k].dtype, device=d[k].device)
-                        d[k] = torch.cat([d[k], one], dim=-1)
+            new_len = seq_c.shape[1]
+            for d in (c_inputs, d_inputs):
+                one = torch.ones((d["input_ids"].shape[0], 1),
+                                 dtype=torch.long, device=seq_c.device)
+                if d.get("attention_mask") is not None and \
+                        d["attention_mask"].shape[1] == new_len - 1:
+                    d["attention_mask"] = torch.cat([d["attention_mask"], one], dim=-1)
+                if d.get("mm_token_type_ids") is not None and \
+                        d["mm_token_type_ids"].shape[1] == new_len - 1:
+                    zero = torch.zeros((d["mm_token_type_ids"].shape[0], 1),
+                                       dtype=d["mm_token_type_ids"].dtype,
+                                       device=seq_c.device)
+                    d["mm_token_type_ids"] = torch.cat(
+                        [d["mm_token_type_ids"], zero], dim=-1)
     return wrapper.processor.decode(seq_c[0, wrapper.prompt_len(c_inputs):],
                                     skip_special_tokens=True).strip()
