@@ -27,7 +27,7 @@ def acc_of(pred_yes, gt_yes):
 def boot_delta(pa, pb, gtv, rng, reps):
     """Paired bootstrap of delta F1 / delta accuracy over resampled samples."""
     n = len(pa)
-    idx = rng.integers(0, n, size=(reps, n))
+    idx = rng.randint(0, n, size=(reps, n))
     df1 = np.empty(reps)
     dacc = np.empty(reps)
     for i in range(reps):
