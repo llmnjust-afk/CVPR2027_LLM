@@ -1,0 +1,17 @@
+[2026-09-22 13:36:11] followup fine-grid rebias for llava-hf/llava-1.5-7b-hf
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]Fetching 3 files: 100%|██████████| 3/3 [00:00<00:00, 467.82it/s]
+Loading weights:   0%|          | 0/686 [00:00<?, ?it/s]Loading weights:   4%|▍         | 29/686 [00:00<00:03, 193.96it/s]Loading weights:   7%|▋         | 49/686 [00:00<00:03, 162.94it/s]Loading weights:  10%|▉         | 66/686 [00:00<00:04, 136.85it/s]Loading weights:  12%|█▏        | 80/686 [00:00<00:04, 124.60it/s]Loading weights:  14%|█▎        | 94/686 [00:00<00:04, 125.53it/s]Loading weights:  16%|█▌        | 109/686 [00:00<00:04, 129.52it/s]Loading weights:  18%|█▊        | 123/686 [00:00<00:04, 132.03it/s]Loading weights:  20%|██        | 139/686 [00:01<00:04, 122.91it/s]Loading weights:  22%|██▏       | 152/686 [00:01<00:04, 123.60it/s]Loading weights:  24%|██▍       | 166/686 [00:01<00:04, 116.76it/s]Loading weights:  26%|██▋       | 181/686 [00:01<00:04, 124.81it/s]Loading weights:  28%|██▊       | 194/686 [00:01<00:04, 109.41it/s]Loading weights:  30%|███       | 208/686 [00:01<00:04, 116.73it/s]Loading weights:  32%|███▏      | 221/686 [00:01<00:04, 108.06it/s]Loading weights:  34%|███▍      | 236/686 [00:01<00:04, 104.69it/s]Loading weights:  36%|███▌      | 248/686 [00:02<00:04, 107.87it/s]Loading weights:  38%|███▊      | 261/686 [00:02<00:04, 104.56it/s]Loading weights:  40%|███▉      | 272/686 [00:02<00:03, 105.42it/s]Loading weights:  41%|████▏     | 283/686 [00:02<00:03, 106.06it/s]Loading weights:  69%|██████▊   | 471/686 [00:02<00:00, 589.41it/s]Loading weights: 100%|██████████| 686/686 [00:02<00:00, 265.60it/s]
+random done
+popular done
+adversarial done
+DONE outputs/rebias/llava-hf_llava-1_5-7b-hf_fine
+[2026-09-22 14:24:22] bootstrap for llava-hf/llava-1.5-7b-hf
+Traceback (most recent call last):
+  File "/data/lab/CVPR2027_LLM/scripts/run_bootstrap.py", line 127, in <module>
+    main()
+  File "/data/lab/CVPR2027_LLM/scripts/run_bootstrap.py", line 102, in main
+    df1, dacc = boot_delta(ours, other_vec, gtv, rng, args.reps)
+  File "/data/lab/CVPR2027_LLM/scripts/run_bootstrap.py", line 30, in boot_delta
+    idx = rng.integers(0, n, size=(reps, n))
+AttributeError: 'numpy.random.mtrand.RandomState' object has no attribute 'integers'

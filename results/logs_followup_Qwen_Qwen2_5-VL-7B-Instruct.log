@@ -1,0 +1,10 @@
+[2026-09-22 13:36:08] followup fine-grid rebias for Qwen/Qwen2.5-VL-7B-Instruct
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 1041.29it/s]
+Loading weights:   0%|          | 0/729 [00:00<?, ?it/s]Loading weights:  51%|█████     | 372/729 [00:00<00:00, 3697.30it/s]Loading weights: 100%|██████████| 729/729 [00:00<00:00, 3247.00it/s]
+random done
+popular done
+adversarial done
+DONE outputs/rebias/Qwen_Qwen2_5-VL-7B-Instruct_fine
+[2026-09-22 14:33:44] bootstrap for Qwen/Qwen2.5-VL-7B-Instruct
+bootstrap rows: 32 -> outputs/bootstrap/Qwen_Qwen2_5-VL-7B-Instruct.csv
