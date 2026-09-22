@@ -34,8 +34,11 @@ if git diff --cached --quiet 2>/dev/null; then
 fi
 git commit -q -m "$MSG" || exit 0
 git pull --rebase -q origin main 2>/dev/null || true
-if ! git push -q origin main 2>&1 | grep -v '^$'; then
-    echo "sync_results: push FAILED (check credentials)"
+if git push origin main > logs/.push.log 2>&1; then
+    echo "sync_results: pushed $(git log --oneline -1)"
+else
+    echo "sync_results: push FAILED:"
+    cat logs/.push.log
     exit 1
 fi
-echo "sync_results: pushed $(git log --oneline -1)"
+echo "sync_results: done"

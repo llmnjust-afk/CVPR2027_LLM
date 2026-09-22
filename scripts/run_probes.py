@@ -61,7 +61,7 @@ def run_box_probe(wrapper, samples, tag, out_dir):
         print(f"  {tag} {s.id} {time.time()-t0:.1f}s", flush=True)
     masks = compute_masks(wrapper, samples, cache)
     cmax = max(r.shape[-1] for r in rows)
-    rows_pad = np.stack([np.pad(r, ((0, 0), (0, cmax - r.shape[-1])),
+    rows_pad = np.stack([np.pad(r, ((0, 0), (0, 0), (0, cmax - r.shape[-1])),
                                 constant_values=np.nan) for r in rows])
     masks_pad = np.stack([np.pad(m, (0, cmax - m.shape[0]),
                                  constant_values=np.nan) for m in masks])
@@ -108,7 +108,7 @@ def run_cond(wrapper, pairs, out_dir):
     masks = compute_masks(wrapper, [p for p in pairs], cache)
     cmax = max(r.shape[-1] for r in ra + rb)
     def pad_all(arrs):
-        return np.stack([np.pad(r, ((0, 0), (0, cmax - r.shape[-1])),
+        return np.stack([np.pad(r, ((0, 0), (0, 0), (0, cmax - r.shape[-1])),
                                 constant_values=np.nan) for r in arrs])
     np.savez(os.path.join(out_dir, "cond.npz"),
              rows_attr=pad_all(ra).astype(np.float16),
@@ -149,7 +149,7 @@ def run_occlusion(wrapper, samples, out_dir):
         ids.append(s.id)
     cmax = max(r.shape[-1] for r in rbase + roccl)
     def pad_all(arrs):
-        return np.stack([np.pad(r, ((0, 0), (0, cmax - r.shape[-1])),
+        return np.stack([np.pad(r, ((0, 0), (0, 0), (0, cmax - r.shape[-1])),
                                 constant_values=np.nan) for r in arrs])
     np.savez(os.path.join(out_dir, "occlusion.npz"),
              rows_base=pad_all(rbase).astype(np.float16),
@@ -182,7 +182,7 @@ def run_pope_capture(wrapper, samples, out_dir):
             else np.zeros(grid[0] * grid[1], dtype=np.float32)
         masks.append(m)
     cmax = max(r.shape[-1] for r in rows)
-    rows_pad = np.stack([np.pad(r, ((0, 0), (0, cmax - r.shape[-1])),
+    rows_pad = np.stack([np.pad(r, ((0, 0), (0, 0), (0, cmax - r.shape[-1])),
                                 constant_values=np.nan) for r in rows])
     np.savez(os.path.join(out_dir, "pope.npz"),
              rows=rows_pad.astype(np.float16),
