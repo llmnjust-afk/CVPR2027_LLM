@@ -4175,3 +4175,29 @@ Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF
 [2026-09-22 11:26:42] data ready; starting branch for llava-hf/llava-1.5-7b-hf on cuda:1
 [2026-09-22 11:26:42] probes already done; skipping
 [2026-09-22 11:26:42] STAGE taxonomy (per-model)
+{
+  "k": 4,
+  "silhouette": 0.15723635673676167,
+  "n_heads": 1024,
+  "features": [
+    "p1_box_iou",
+    "p1_entropy",
+    "p1_mass_in_box",
+    "p1_pointing",
+    "p1_topk_prec",
+    "p3_cond_kld",
+    "p5_head_entropy",
+    "p5_sink16",
+    "p5_sink_stability",
+    "p6_occluded_mass",
+    "p6_reroute_kld",
+    "p8_mass_when_correct"
+  ],
+  "role_counts": {
+    "cond": 113,
+    "unassigned": 673,
+    "grounding": 110,
+    "sink": 53,
+    "reroute": 75
+  }
+}

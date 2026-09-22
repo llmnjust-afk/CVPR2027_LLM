@@ -4215,3 +4215,7 @@ IndexError: index 45 is out of bounds for dimension 0 with size 28
     "reroute": 91
   }
 }
+[2026-09-22 11:27:44] STAGE ablation
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 670.81it/s]
+Loading weights:   0%|          | 0/729 [00:00<?, ?it/s]Loading weights:  43%|████▎     | 310/729 [00:00<00:00, 3066.17it/s]Loading weights:  85%|████████▍ | 617/729 [00:00<00:00, 2934.81it/s]Loading weights: 100%|██████████| 729/729 [00:00<00:00, 2974.00it/s]
