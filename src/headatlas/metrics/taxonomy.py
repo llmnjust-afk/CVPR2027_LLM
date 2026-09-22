@@ -96,13 +96,14 @@ def plot_layer_head_heatmap(scores, out_png, title=""):
     plt.close()
 
 
-def export_heads_csv(feature_names, X, labels, roles, layer_ids, out_csv):
+def export_heads_csv(feature_names, X, labels, roles, layer_ids, out_csv,
+                     n_heads=1):
     os.makedirs(os.path.dirname(out_csv), exist_ok=True)
     with open(out_csv, "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["layer", "head", "cluster", "role"] + list(feature_names))
         for i in range(X.shape[0]):
-            w.writerow([int(layer_ids[i]), i % 10000, int(labels[i]), roles[i]]
+            w.writerow([int(layer_ids[i]), i % n_heads, int(labels[i]), roles[i]]
                        + [f"{v:.6f}" for v in X[i]])
 
 

@@ -28,7 +28,7 @@ def process_model(raw_dir, out_dir, probes):
     cl = cluster_heads(X, layer_ids, k_min=3, k_max=8)
     roles = guess_roles(keys, X, layer_ids)
     export_heads_csv(keys, X, cl["labels"], roles, layer_ids,
-                     os.path.join(out_dir, "heads.csv"))
+                     os.path.join(out_dir, "heads.csv"), n_heads=H)
     plot_embedding(cl["Z"], cl["labels"], layer_ids,
                    os.path.join(out_dir, "fig_atlas.png"))
     for fname in keys:
