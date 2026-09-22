@@ -89,7 +89,7 @@ def run_sink(wrapper, samples, out_dir, first_k=16):
 
 def run_cond(wrapper, pairs, out_dir):
     grabber = AttentionGrabber(wrapper.model)
-    ra, rb, grids, ids = [], {}, [], []
+    ra, rb, grids, ids = [], [], [], []
     cache = {}
     for s in pairs:
         inputs = wrapper.build_inputs(s)
