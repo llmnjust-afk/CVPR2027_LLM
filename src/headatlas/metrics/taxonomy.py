@@ -107,14 +107,17 @@ def export_heads_csv(feature_names, X, labels, roles, layer_ids, out_csv,
                        + [f"{v:.6f}" for v in X[i]])
 
 
-def align_clusters(Z_a, labels_a, Z_b, labels_b, k):
-    """Hungarian matching of cluster centroids across two models by cosine."""
+def align_clusters(Z_a, labels_a, Z_b, labels_b, k=None):
+    """Hungarian matching of cluster centroids across two models by cosine.
+    Handles different k between models (rectangular assignment)."""
     from scipy.optimize import linear_sum_assignment
-    ca = np.stack([Z_a[labels_a == c].mean(axis=0) for c in range(k)])
-    cb = np.stack([Z_b[labels_b == c].mean(axis=0) for c in range(k)])
-    sim = np.zeros((k, k))
-    for i in range(k):
-        for j in range(k):
+    k_a = int(labels_a.max()) + 1
+    k_b = int(labels_b.max()) + 1
+    ca = np.stack([Z_a[labels_a == c].mean(axis=0) for c in range(k_a)])
+    cb = np.stack([Z_b[labels_b == c].mean(axis=0) for c in range(k_b)])
+    sim = np.zeros((k_a, k_b))
+    for i in range(k_a):
+        for j in range(k_b):
             na, nb = np.linalg.norm(ca[i]), np.linalg.norm(cb[j])
             sim[i, j] = float(ca[i] @ cb[j] / max(na * nb, 1e-8))
     rows, cols = linear_sum_assignment(-sim)

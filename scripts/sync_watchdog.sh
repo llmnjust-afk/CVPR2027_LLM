@@ -18,7 +18,7 @@ while true; do
         MODELS=$(models_line)
         if [ -n "$MODELS" ]; then
             echo "[$(date '+%F %T')] running cross-model alignment" >> logs/watchdog.log
-            PYTHONPATH=src python scripts/run_taxonomy.py --models $MODELS \
+            PYTHONPATH=src python3 scripts/run_taxonomy.py --models $MODELS \
                 >> logs/alignment.log 2>&1 || true
             bash scripts/sync_results.sh "watchdog: cross-model alignment" || true
         fi
