@@ -21,16 +21,20 @@ def _padded_stack(arrays, pad=float("nan")) -> np.ndarray:
 
 
 def compute_probe_features(probe, npz, data_dir=None):
-    """probe -> dict feature_name -> [L, H] float arrays."""
+    """probe -> dict feature_name -> [L, H] float arrays.
+
+    Saved rows layout is sample-major: [n, L, H, (chunks,) C].
+    """
     rows_key = next(k for k in ("rows", "rows_attr", "rows_base", "rows16")
                     if k in npz)
-    L, H = npz[rows_key].shape[0], npz[rows_key].shape[1]
+    n, L, H = npz[rows_key].shape[0], npz[rows_key].shape[1], \
+        npz[rows_key].shape[2]
     feats = {}
     if probe in ("grounding", "ocr", "ocr_synth", "synth_grounding", "spatial"):
         rows = npz["rows"]
         masks = npz["box_masks"]
         grids = npz["grids"]
-        n = rows.shape[2]
+        n = rows.shape[0]
         acc = {k: np.zeros((L, H)) for k in
                ("mass_in_box", "topk_prec", "pointing", "box_iou", "entropy")}
         for i in range(n):
@@ -41,7 +45,7 @@ def compute_probe_features(probe, npz, data_dir=None):
                 continue
             for l in range(L):
                 for h in range(H):
-                    row = rows[l, h, i]
+                    row = rows[i, l, h]
                     valid = np.isfinite(row)
                     if not valid.any():
                         continue
@@ -60,34 +64,34 @@ def compute_probe_features(probe, npz, data_dir=None):
     elif probe == "cond":
         a = npz["rows_attr"]
         b = npz["rows_plain"]
-        n = min(a.shape[2], b.shape[2])
+        n = min(a.shape[0], b.shape[0])
         kl = np.zeros((L, H))
         for i in range(n):
             for l in range(L):
                 for h in range(H):
-                    kl[l, h] += sym_kld(a[l, h, i], b[l, h, i])
+                    kl[l, h] += sym_kld(a[i, l, h], b[i, l, h])
         feats = {"p3_cond_kld": kl / max(1, n)}
     elif probe == "sink":
         rows = npz["rows16"]
         mass = rows.sum(axis=-1)
         feats = {
-            "p5_sink16": mass.mean(axis=2),
-            "p5_sink_stability": 1.0 - (mass.std(axis=2) / np.maximum(mass.mean(axis=2), 1e-8)),
+            "p5_sink16": mass.mean(axis=0),
+            "p5_sink_stability": 1.0 - (mass.std(axis=0) / np.maximum(mass.mean(axis=0), 1e-8)),
             "p5_head_entropy": np.zeros((L, H)),
         }
-        n = rows.shape[2]
+        n = rows.shape[0]
         ent = np.zeros((L, H))
         for i in range(n):
             for l in range(L):
                 for h in range(H):
-                    ent[l, h] += attention_entropy(rows[l, h, i])
+                    ent[l, h] += attention_entropy(rows[i, l, h])
         feats["p5_head_entropy"] = ent / max(1, n)
     elif probe == "occlusion":
         base = npz["rows_base"]
         occl = npz["rows_occl"]
         masks = npz["box_masks"]
         grids = npz["grids"]
-        n = occl.shape[2]
+        n = occl.shape[0]
         omass = np.zeros((L, H))
         shift = np.zeros((L, H))
         cnt = 0
@@ -98,12 +102,12 @@ def compute_probe_features(probe, npz, data_dir=None):
             cnt += 1
             for l in range(L):
                 for h in range(H):
-                    ro = occl[l, h, i]
+                    ro = occl[i, l, h]
                     valid = np.isfinite(ro)
                     g = tokens_to_grid(ro[valid], grids[i])
                     gm = tokens_to_grid(mask[valid], grids[i])
                     omass[l, h] += mass_in_box(g, gm)
-                    rb = base[l, h, i][valid]
+                    rb = base[i, l, h][valid]
                     shift[l, h] += sym_kld(rb, ro)
         cnt = max(1, cnt)
         feats = {"p6_occluded_mass": omass / cnt, "p6_reroute_kld": shift / cnt}
@@ -112,7 +116,7 @@ def compute_probe_features(probe, npz, data_dir=None):
         masks = npz["box_masks"]
         correct = npz["correct"]
         grids = npz["grids"]
-        L0, H0, n = rows.shape[:3]
+        n = rows.shape[0]
         corr = np.zeros((L, H))
         cnt = 0
         for i in range(n):
@@ -122,7 +126,7 @@ def compute_probe_features(probe, npz, data_dir=None):
             cnt += 1
             for l in range(L):
                 for h in range(H):
-                    r = rows[l, h, i]
+                    r = rows[i, l, h]
                     valid = np.isfinite(r)
                     g = tokens_to_grid(r[valid], grids[i])
                     gm = tokens_to_grid(mask[valid], grids[i])
