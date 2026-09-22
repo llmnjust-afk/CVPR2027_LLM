@@ -5,10 +5,14 @@ import torch.nn.functional as F
 
 
 def vcd_generate(wrapper, sample, alpha=1.0, beta=0.1, noise_std=0.3,
-                 max_new_tokens=16):
-    """Contrastive decoding baseline (VCD, CVPR 2024): greedy decode with
-    logits = (1+alpha) * log p(clean) - alpha * log p(visually-degraded),
-    restricted to plausible tokens (p_clean > beta * max)."""
+                 max_new_tokens=16, forced_choice=True):
+    """Contrastive decoding baseline (VCD, CVPR 2024).
+
+    forced_choice=True (default): single forward pair, argmax restricted to
+    {Yes, No} — the same forced-choice protocol as all other methods in the
+    comparison tables. forced_choice=False: full greedy contrastive decoding
+    with plausibility mask, logits = (1+alpha)*log p(clean) - alpha*log p(degraded).
+    """
     import numpy as np
     clean_img = sample.load_image()
     rng = np.random.RandomState(0)
@@ -22,6 +26,16 @@ def vcd_generate(wrapper, sample, alpha=1.0, beta=0.1, noise_std=0.3,
     c_inputs = wrapper.build_inputs(sample)
     d_inputs = wrapper.build_inputs(degraded)
     device = wrapper.device
+    if forced_choice:
+        tok = wrapper.processor.tokenizer
+        cand = [tok.encode("Yes")[0], tok.encode("No")[0]]
+        with torch.no_grad():
+            lc = F.log_softmax(wrapper.model(**c_inputs).logits[:, -1, :],
+                               dim=-1)
+            ld = F.log_softmax(wrapper.model(**d_inputs).logits[:, -1, :],
+                               dim=-1)
+            sc = ((1 + alpha) * lc - alpha * ld)[:, cand]
+        return "Yes" if int(sc.argmax(dim=-1).item()) == 0 else "No"
     eos_ids = wrapper.model.generation_config.eos_token_id
     if eos_ids is None:
         eos_ids = wrapper.processor.tokenizer.eos_token_id
