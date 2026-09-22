@@ -2,6 +2,7 @@ __pycache__/
 *.pyc
 outputs/
 data/
+logs/
 figures/*.png
 figures/*.pdf
 *.npz
