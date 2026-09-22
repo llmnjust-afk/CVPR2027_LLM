@@ -22,7 +22,9 @@ def _padded_stack(arrays, pad=float("nan")) -> np.ndarray:
 
 def compute_probe_features(probe, npz, data_dir=None):
     """probe -> dict feature_name -> [L, H] float arrays."""
-    L, H = npz["rows"].shape[0], npz["rows"].shape[1]
+    rows_key = next(k for k in ("rows", "rows_attr", "rows_base", "rows16")
+                    if k in npz)
+    L, H = npz[rows_key].shape[0], npz[rows_key].shape[1]
     feats = {}
     if probe in ("grounding", "ocr", "ocr_synth", "synth_grounding", "spatial"):
         rows = npz["rows"]
