@@ -10,19 +10,20 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 from headatlas.probes.synthetic import build_ocr_probe, build_sink_probe
 
 POPE_URLS = [
-    "https://raw.githubusercontent.com/RUCAIBox/POPE/main/data/POPE/{split}_pope.json",
-    "https://raw.githubusercontent.com/RUCAIBox/POPE/master/data/POPE/{split}_pope.json",
-    "https://raw.githubusercontent.com/RUCAIBox/POPE/main/data/POPE/coco_{split}_pope.json",
-    "https://raw.githubusercontent.com/RUCAIBox/POPE/master/data/POPE/coco_{split}_pope.json",
+    "https://raw.githubusercontent.com/RUCAIBox/POPE/main/output/coco/coco_{split}_pope.json",
+    "https://raw.githubusercontent.com/RUCAIBox/POPE/master/output/coco/coco_{split}_pope.json",
 ]
 
 
-def fetch(url, timeout=60):
-    try:
-        with urllib.request.urlopen(url, timeout=timeout) as r:
-            return r.read()
-    except Exception:
-        return None
+def fetch(url, timeout=60, retries=2):
+    for k in range(retries + 1):
+        try:
+            with urllib.request.urlopen(url, timeout=timeout) as r:
+                return r.read()
+        except Exception:
+            if k == retries:
+                return None
+    return None
 
 
 def image_file(field):
