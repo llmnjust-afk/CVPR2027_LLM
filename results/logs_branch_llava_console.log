@@ -1207,3 +1207,6 @@ model=llava-hf/llava-1.5-7b-hf layers=32 heads=32 family=llava
   ocr_synth ocr_399 0.1s
 [transformers] The following generation flags are not valid and may be ignored: ['output_attentions']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
 DONE outputs/raw/llava-hf_llava-1_5-7b-hf
+sync_results: pushed 17ab4e1 pipeline[llava-hf_llava-1_5-7b-hf]: S1 probes done
+sync_results: done
+[2026-09-22 10:37:50] STAGE taxonomy (per-model)
