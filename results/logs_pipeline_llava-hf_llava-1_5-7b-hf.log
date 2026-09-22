@@ -4205,3 +4205,11 @@ Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
 Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]Fetching 3 files: 100%|██████████| 3/3 [00:00<00:00, 647.14it/s]
 Loading weights:   0%|          | 0/686 [00:00<?, ?it/s]Loading weights:   4%|▍         | 28/686 [00:00<00:03, 200.36it/s]Loading weights:   7%|▋         | 49/686 [00:00<00:03, 164.80it/s]Loading weights:  10%|▉         | 66/686 [00:00<00:03, 162.69it/s]Loading weights:  12%|█▏        | 83/686 [00:00<00:04, 140.26it/s]Loading weights:  14%|█▍        | 99/686 [00:00<00:04, 134.73it/s]Loading weights:  16%|█▋        | 113/686 [00:00<00:04, 134.49it/s]Loading weights:  19%|█▊        | 127/686 [00:00<00:04, 134.95it/s]Loading weights:  21%|██        | 141/686 [00:01<00:04, 117.46it/s]Loading weights:  22%|██▏       | 154/686 [00:01<00:04, 120.37it/s]Loading weights:  24%|██▍       | 167/686 [00:01<00:04, 121.77it/s]Loading weights:  26%|██▌       | 180/686 [00:01<00:04, 123.27it/s]Loading weights:  28%|██▊       | 194/686 [00:01<00:03, 127.75it/s]Loading weights:  31%|███       | 211/686 [00:01<00:03, 128.46it/s]Loading weights:  33%|███▎      | 226/686 [00:01<00:03, 133.52it/s]Loading weights:  35%|███▍      | 240/686 [00:01<00:03, 133.49it/s]Loading weights:  37%|███▋      | 254/686 [00:01<00:03, 134.77it/s]Loading weights:  39%|███▉      | 270/686 [00:02<00:03, 122.51it/s]Loading weights:  42%|████▏     | 287/686 [00:02<00:02, 134.65it/s]Loading weights:  77%|███████▋  | 528/686 [00:02<00:00, 751.88it/s]Loading weights: 100%|██████████| 686/686 [00:02<00:00, 296.17it/s]
+baseline                                                mass=0.0263
+grounding      [(0, 2), (0, 13), (0, 20)]               mass=0.0261
+cond           [(0, 7), (0, 22), (0, 23)]               mass=0.0263
+reroute        [(0, 21), (0, 25), (1, 17)]              mass=0.0263
+unassigned     [(0, 0), (0, 1), (0, 3)]                 mass=0.0280
+random         [(25, 6), (5, 31), (3, 16)]              mass=0.0258
+sink           [(0, 9), (0, 28), (0, 31)]               mass=0.0265
+DONE outputs/ablation/llava-hf_llava-1_5-7b-hf/synth_grounding_zero.csv
