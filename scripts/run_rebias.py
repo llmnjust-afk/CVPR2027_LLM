@@ -77,8 +77,15 @@ if __name__ == "__main__":
             samples = subsample(splits[split], min(50, args.max_per_split), seed=0)
             preds = []
             for s in samples:
-                preds.append(parse_yes_no(vcd_generate(wrapper, s, alpha=1.0)))
-            m = pope_metrics(preds, [s.answer for s in samples])
+                try:
+                    preds.append(parse_yes_no(vcd_generate(wrapper, s, alpha=1.0)))
+                except Exception as e:
+                    print("vcd skip", s.id, type(e).__name__, str(e)[:150],
+                          flush=True)
+                    preds.append(None)
+            pairs = [(p, s2.answer) for p, s2 in zip(preds, samples)
+                     if p is not None]
+            m = pope_metrics([p for p, _ in pairs], [a for _, a in pairs])
             m.update(method="vcd", alpha=1.0, split=split)
             all_rows.append(m)
             print("vcd", split, m["f1"])
