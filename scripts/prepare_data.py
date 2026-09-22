@@ -156,6 +156,7 @@ if __name__ == "__main__":
     ap.add_argument("--refcoco", nargs=2, default=None, metavar=("REFS", "INSTANCES"))
     ap.add_argument("--max-samples", type=int, default=800)
     ap.add_argument("--ensure-images", action="store_true")
+    ap.add_argument("--max-missing", type=int, default=4000)
     ap.add_argument("--coco-instances", default=None)
     args = ap.parse_args()
     os.makedirs(args.data, exist_ok=True)
@@ -165,4 +166,4 @@ if __name__ == "__main__":
         prepare_refcoco(args.data, args.refcoco[0], args.refcoco[1],
                         max_samples=args.max_samples)
     if args.ensure_images:
-        ensure_images(args.data)
+        ensure_images(args.data, max_missing=args.max_missing)

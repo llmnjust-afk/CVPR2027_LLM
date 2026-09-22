@@ -212,12 +212,16 @@ def main():
     L, H = n_layers_heads(wrapper.model)
     print(f"model={args.model} layers={L} heads={H} family={wrapper.family}")
     probes = args.probes.split(",")
+    has_refcoco = os.path.exists(os.path.join(args.data, "refcoco.jsonl"))
     if "synth_grounding" in probes:
         samples = loaders.load_probe("synth_grounding", args.data, args.max_samples)
         run_box_probe(wrapper, samples, "synth_grounding", out)
     if "grounding" in probes:
-        samples = loaders.load_probe("grounding", args.data, args.max_samples)
-        run_box_probe(wrapper, samples, "grounding", out)
+        if not has_refcoco:
+            print("grounding skipped (refcoco.jsonl missing)")
+        else:
+            samples = loaders.load_probe("grounding", args.data, args.max_samples)
+            run_box_probe(wrapper, samples, "grounding", out)
     if "ocr_synth" in probes:
         samples = loaders.load_probe("ocr_synth", args.data, args.max_samples)
         run_box_probe(wrapper, samples, "ocr_synth", out)
@@ -238,8 +242,11 @@ def main():
         else:
             print("no conditioning pairs available (RefCOCO jsonl missing?)")
     if "occlusion" in probes:
-        samples = loaders.load_probe("grounding", args.data, args.max_samples)
-        run_occlusion(wrapper, samples, out)
+        if not has_refcoco:
+            print("occlusion skipped (refcoco.jsonl missing)")
+        else:
+            samples = loaders.load_probe("grounding", args.data, args.max_samples)
+            run_occlusion(wrapper, samples, out)
     if "pope" in probes:
         splits = loaders.pope_splits(args.data)
         if not splits:

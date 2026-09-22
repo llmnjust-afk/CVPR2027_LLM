@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# One-shot data preparation for the HeadAtlas probe battery:
+#   COCO val2014 instances json (for POPE GT boxes) -> POPE 3 splits ->
+#   RefCOCO refs pkl (best-effort) -> lazy COCO image download.
+# Safe to re-run (existing files are skipped).
+set -uo pipefail
+cd "$(dirname "$0")/.."
+DATA="${1:-data}"
+mkdir -p "$DATA" logs
+export PYTHONPATH=src
+
+log() { echo "[$(date '+%F %T')] $*" | tee -a logs/prepare_data.log; }
+
+INST="$DATA/instances_val2014.json"
+if [ ! -f "$INST" ]; then
+    log "downloading COCO val2014 annotations (~240MB)"
+    for u in "http://images.cocodataset.org/annotations/annotations_trainval2014.zip"; do
+        curl -fsSL --retry 3 -o "$DATA/ann.zip" "$u" && break
+    done
+    if [ -f "$DATA/ann.zip" ]; then
+        python3 - "$DATA/ann.zip" "$DATA" <<'EOF'
+import sys, zipfile, os
+zpath, out = sys.argv[1], sys.argv[2]
+with zipfile.ZipFile(zpath) as z:
+    z.extract("annotations/instances_val2014.json", out)
+os.replace(os.path.join(out, "annotations", "instances_val2014.json"),
+           os.path.join(out, "instances_val2014.json"))
+EOF
+        rm -f "$DATA/ann.zip"
+        log "instances json ready"
+    else
+        log "FAILED to download COCO annotations; POPE will have no GT boxes"
+    fi
+fi
+
+log "preparing POPE splits"
+if [ -f "$INST" ]; then
+    python scripts/prepare_data.py --data "$DATA" --pope --coco-instances "$INST" 2>&1 | tee -a logs/prepare_data.log
+else
+    python scripts/prepare_data.py --data "$DATA" --pope 2>&1 | tee -a logs/prepare_data.log
+fi
+
+REFS="$DATA/refs(unc).pkl"
+if [ ! -f "$REFS" ]; then
+    log "trying RefCOCO refs(unc).pkl download"
+    curl -fsSL --retry 2 -o "$REFS" \
+        "https://bvisionweb1.cs.unc.edu/public/downloads/refclef/refs(unc).pkl" \
+        || rm -f "$REFS" || true
+fi
+if [ -f "$REFS" ] && [ -f "$INST" ] && [ ! -f "$DATA/refcoco.jsonl" ]; then
+    log "converting RefCOCO"
+    python scripts/prepare_data.py --data "$DATA" --refcoco "$REFS" "$INST" 2>&1 | tee -a logs/prepare_data.log
+fi
+if [ ! -f "$DATA/refcoco.jsonl" ]; then
+    log "WARNING: refcoco.jsonl missing; grounding/cond/occlusion probes will be skipped"
+fi
+
+log "lazy-downloading COCO val2014 images (capped)"
+python scripts/prepare_data.py --data "$DATA" --ensure-images --max-missing 8000 2>&1 | tee -a logs/prepare_data.log
+
+ls "$DATA/images/val2014" 2>/dev/null | wc -l | xargs -I{} log "images on disk: {}"
+touch "$DATA/.prepped"
+log "PREP_DONE"
