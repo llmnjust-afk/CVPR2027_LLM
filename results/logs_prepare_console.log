@@ -1,0 +1,24 @@
+[2026-09-22 10:04:37] preparing POPE splits (raw github primary, HF fallback, outer retry)
+FAILED to download POPE random; check URLs manually
+FAILED to download POPE popular; check URLs manually
+FAILED to download POPE adversarial; check URLs manually
+[2026-09-22 10:04:43] POPE via HF mirror (lmms-lab-encoder/POPE)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+wrote data/pope_random.jsonl 3000
+wrote data/pope_popular.jsonl 3000
+wrote data/pope_adversarial.jsonl 3000
+[2026-09-22 10:05:04] trying RefCOCO refs(unc).pkl download (UNC, may be blocked)
+[2026-09-22 10:05:05] lazy-downloading COCO images val2014+train2014 (capped)
+500 images missing
+downloaded 50
+downloaded 100
+downloaded 150
+downloaded 200
+downloaded 250
+downloaded 300
+downloaded 350
+downloaded 400
+downloaded 450
+downloaded 500
+[2026-09-22 10:06:20] images on disk: 815
+[2026-09-22 10:06:20] PREP_DONE
