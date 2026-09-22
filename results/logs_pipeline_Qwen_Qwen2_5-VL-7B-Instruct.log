@@ -4159,3 +4159,10 @@ KMeans does not accept missing values encoded as NaN natively. For supervised le
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
 Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 737.01it/s]
 Loading weights:   0%|          | 0/729 [00:00<?, ?it/s]Loading weights:  45%|████▍     | 327/729 [00:00<00:00, 3192.36it/s]Loading weights:  89%|████████▉ | 647/729 [00:00<00:00, 3131.04it/s]Loading weights: 100%|██████████| 729/729 [00:00<00:00, 3231.41it/s]
+baseline                                                mass=0.0492
+grounding      [(0, 2), (0, 3), (1, 45)]                mass=0.0462
+reroute        [(0, 7), (0, 10), (1, 52)]               mass=0.0454
+unassigned     [(0, 0), (0, 1), (0, 4)]                 mass=0.0485
+random         [(4, 12), (8, 13), (21, 0)]              mass=0.0502
+sink           [(0, 9), (0, 13), (0, 17)]               mass=0.0499
+DONE outputs/ablation/Qwen_Qwen2_5-VL-7B-Instruct/synth_grounding_zero.csv
