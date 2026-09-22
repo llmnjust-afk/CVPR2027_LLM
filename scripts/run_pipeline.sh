@@ -38,31 +38,31 @@ while [ ! -f data/.prepped ]; do sleep 60; done
 log "data ready; starting branch for $MODEL on $DEV"
 
 log "STAGE probes ($PROBES, max_samples=$MAXS)"
-python scripts/run_probes.py --model "$MODEL" --data data --probes "$PROBES" \
+python3 scripts/run_probes.py --model "$MODEL" --data data --probes "$PROBES" \
     --max-samples "$MAXS" --device "$DEV" 2>&1 | tee -a "$LOG"
 touch "outputs/flags/${SLUG}_probes.done"
 sync "S1 probes done"
 
 log "STAGE taxonomy (per-model)"
-python scripts/run_taxonomy.py --models "$MODEL" 2>&1 | tee -a "$LOG"
+python3 scripts/run_taxonomy.py --models "$MODEL" 2>&1 | tee -a "$LOG"
 touch "outputs/flags/${SLUG}_taxonomy.done"
 sync "taxonomy done"
 
 HC="outputs/taxonomy/$SLUG/heads.csv"
 log "STAGE ablation"
-python scripts/run_ablation.py --model "$MODEL" --heads-csv "$HC" \
+python3 scripts/run_ablation.py --model "$MODEL" --heads-csv "$HC" \
     --probe synth_grounding --n-eval "$NEVAL" --device "$DEV" 2>&1 | tee -a "$LOG"
 touch "outputs/flags/${SLUG}_ablation.done"
 sync "S2 ablation done"
 
 log "STAGE patching"
-python scripts/run_patching.py --model "$MODEL" --heads-csv "$HC" \
+python3 scripts/run_patching.py --model "$MODEL" --heads-csv "$HC" \
     --probe grounding --role grounding --max-samples 40 --device "$DEV" 2>&1 | tee -a "$LOG"
 touch "outputs/flags/${SLUG}_patching.done"
 sync "S2 patching done"
 
 log "STAGE rebias (splits x alphas x {vanilla,pai,ours} + vcd)"
-python scripts/run_rebias.py --model "$MODEL" --heads-csv "$HC" \
+python3 scripts/run_rebias.py --model "$MODEL" --heads-csv "$HC" \
     --alphas 0.5,1,2 --max-per-split "$RBS" --vcd --device "$DEV" 2>&1 | tee -a "$LOG"
 touch "outputs/flags/${SLUG}_done.done"
 sync "S3 rebias done"

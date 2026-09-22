@@ -1,0 +1,9 @@
+[2026-09-22 09:51:36] downloading COCO val2014 annotations (~240MB)
+[2026-09-22 09:51:40] instances json ready
+[2026-09-22 09:51:40] preparing POPE splits
+scripts/prepare_all.sh: line 38: python: command not found
+[2026-09-22 09:51:40] trying RefCOCO refs(unc).pkl download
+[2026-09-22 09:51:43] WARNING: refcoco.jsonl missing; grounding/cond/occlusion probes will be skipped
+[2026-09-22 09:51:43] lazy-downloading COCO val2014 images (capped)
+scripts/prepare_all.sh: line 59: python: command not found
+[2026-09-22 09:51:43] PREP_DONE

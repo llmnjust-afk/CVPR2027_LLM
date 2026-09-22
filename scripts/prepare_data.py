@@ -82,9 +82,14 @@ def prepare_pope(data_dir, coco_instances=None):
         print("wrote", out_path, len(samples))
 
 
+def _coco_url(fn):
+    sub = "train2014" if "train2014" in fn else "val2014"
+    return f"http://images.cocodataset.org/{sub}/{fn}"
+
+
 def ensure_images(data_dir, max_missing=4000):
-    img_dir = os.path.join(data_dir, "images", "val2014")
-    os.makedirs(img_dir, exist_ok=True)
+    img_root = os.path.join(data_dir, "images")
+    os.makedirs(img_root, exist_ok=True)
     files = set()
     for fn in os.listdir(data_dir):
         if not fn.endswith(".jsonl"):
@@ -96,13 +101,16 @@ def ensure_images(data_dir, max_missing=4000):
                 if ip:
                     files.add(os.path.basename(ip))
     missing = [f for f in sorted(files)
-               if not os.path.exists(os.path.join(img_dir, f))]
+               if not os.path.exists(os.path.join(img_root,
+                   "train2014" if "train2014" in f else "val2014", f))]
     print(f"{len(missing)} images missing")
     for i, fn in enumerate(missing[:max_missing]):
-        raw = fetch(f"http://images.cocodataset.org/val2014/{fn}", timeout=120)
+        raw = fetch(_coco_url(fn), timeout=120)
         if raw is None:
             continue
-        with open(os.path.join(img_dir, fn), "wb") as f:
+        sub = "train2014" if "train2014" in fn else "val2014"
+        os.makedirs(os.path.join(img_root, sub), exist_ok=True)
+        with open(os.path.join(img_root, sub, fn), "wb") as f:
             f.write(raw)
         if (i + 1) % 50 == 0:
             print("downloaded", i + 1)

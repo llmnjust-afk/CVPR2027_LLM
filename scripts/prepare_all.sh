@@ -35,29 +35,34 @@ fi
 
 log "preparing POPE splits"
 if [ -f "$INST" ]; then
-    python scripts/prepare_data.py --data "$DATA" --pope --coco-instances "$INST" 2>&1 | tee -a logs/prepare_data.log
+    python3 scripts/prepare_data.py --data "$DATA" --pope --coco-instances "$INST" 2>&1 | tee -a logs/prepare_data.log
 else
-    python scripts/prepare_data.py --data "$DATA" --pope 2>&1 | tee -a logs/prepare_data.log
+    python3 scripts/prepare_data.py --data "$DATA" --pope 2>&1 | tee -a logs/prepare_data.log
 fi
 
 REFS="$DATA/refs(unc).pkl"
 if [ ! -f "$REFS" ]; then
-    log "trying RefCOCO refs(unc).pkl download"
-    curl -fsSL --retry 2 -o "$REFS" \
+    log "trying RefCOCO refs(unc).pkl download (UNC, may be blocked)"
+    curl -fsSL --retry 1 --max-time 60 -o "$REFS" \
         "https://bvisionweb1.cs.unc.edu/public/downloads/refclef/refs(unc).pkl" \
-        || rm -f "$REFS" || true
+        2>/dev/null || rm -f "$REFS" || true
 fi
 if [ -f "$REFS" ] && [ -f "$INST" ] && [ ! -f "$DATA/refcoco.jsonl" ]; then
-    log "converting RefCOCO"
-    python scripts/prepare_data.py --data "$DATA" --refcoco "$REFS" "$INST" 2>&1 | tee -a logs/prepare_data.log
+    log "converting RefCOCO from pkl"
+    python3 scripts/prepare_data.py --data "$DATA" --refcoco "$REFS" "$INST" 2>&1 | tee -a logs/prepare_data.log
+fi
+if [ ! -f "$DATA/refcoco.jsonl" ]; then
+    log "building RefCOCO from HF mirror (jxu124/refcoco)"
+    python3 scripts/prepare_refcoco_hf.py --data "$DATA" --max-samples 800 2>&1 | tee -a logs/prepare_data.log
 fi
 if [ ! -f "$DATA/refcoco.jsonl" ]; then
     log "WARNING: refcoco.jsonl missing; grounding/cond/occlusion probes will be skipped"
 fi
 
-log "lazy-downloading COCO val2014 images (capped)"
-python scripts/prepare_data.py --data "$DATA" --ensure-images --max-missing 8000 2>&1 | tee -a logs/prepare_data.log
+log "lazy-downloading COCO images val2014+train2014 (capped)"
+python3 scripts/prepare_data.py --data "$DATA" --ensure-images --max-missing 12000 2>&1 | tee -a logs/prepare_data.log
 
-ls "$DATA/images/val2014" 2>/dev/null | wc -l | xargs -I{} log "images on disk: {}"
+NIMG=$(find "$DATA/images" -name '*.jpg' 2>/dev/null | wc -l)
+log "images on disk: $NIMG"
 touch "$DATA/.prepped"
 log "PREP_DONE"
