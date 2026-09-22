@@ -4103,3 +4103,23 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.10/dist-packages/numpy/_core/shape_base.py", line 460, in stack
     raise ValueError('all input arrays must have the same shape')
 ValueError: all input arrays must have the same shape
+[2026-09-22 11:17:05] waiting for data/.prepped
+[2026-09-22 11:17:05] data ready; starting branch for llava-hf/llava-1.5-7b-hf on cuda:1
+[2026-09-22 11:17:05] probes already done; skipping
+[2026-09-22 11:17:05] STAGE taxonomy (per-model)
+Traceback (most recent call last):
+  File "/data/lab/CVPR2027_LLM/scripts/run_taxonomy.py", line 64, in <module>
+    results[mid] = process_model(raw_dir, os.path.join(args.out_root, s), probes)
+  File "/data/lab/CVPR2027_LLM/scripts/run_taxonomy.py", line 32, in process_model
+    plot_embedding(cl["Z"], cl["labels"], layer_ids,
+  File "/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/taxonomy.py", line 79, in plot_embedding
+    plt.colorbar(sc, name="cluster")
+  File "/usr/local/lib/python3.10/dist-packages/matplotlib/pyplot.py", line 2533, in colorbar
+    ret = gcf().colorbar(mappable, cax=cax, ax=ax, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/matplotlib/figure.py", line 1315, in colorbar
+    cb = cbar.Colorbar(cax, mappable, **{
+TypeError: Colorbar.__init__() got an unexpected keyword argument 'name'
+[2026-09-22 11:21:12] waiting for data/.prepped
+[2026-09-22 11:21:12] data ready; starting branch for llava-hf/llava-1.5-7b-hf on cuda:1
+[2026-09-22 11:21:12] probes already done; skipping
+[2026-09-22 11:21:12] STAGE taxonomy (per-model)

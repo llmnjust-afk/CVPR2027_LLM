@@ -4089,3 +4089,69 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.10/dist-packages/numpy/_core/shape_base.py", line 460, in stack
     raise ValueError('all input arrays must have the same shape')
 ValueError: all input arrays must have the same shape
+[2026-09-22 11:17:26] waiting for data/.prepped
+[2026-09-22 11:17:26] data ready; starting branch for Qwen/Qwen2.5-VL-7B-Instruct on cuda:0
+[2026-09-22 11:17:26] probes already done; skipping
+[2026-09-22 11:17:26] STAGE taxonomy (per-model)
+/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/fingerprints.py:79: RuntimeWarning: invalid value encountered in divide
+  "p5_sink_stability": 1.0 - (mass.std(axis=0) / np.maximum(mass.mean(axis=0), 1e-8)),
+Traceback (most recent call last):
+  File "/data/lab/CVPR2027_LLM/scripts/run_taxonomy.py", line 64, in <module>
+    results[mid] = process_model(raw_dir, os.path.join(args.out_root, s), probes)
+  File "/data/lab/CVPR2027_LLM/scripts/run_taxonomy.py", line 28, in process_model
+    cl = cluster_heads(X, layer_ids, k_min=3, k_max=8)
+  File "/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/taxonomy.py", line 37, in cluster_heads
+    km = KMeans(n_clusters=k, n_init=10, random_state=seed).fit(Z)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/base.py", line 1365, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/cluster/_kmeans.py", line 1454, in fit
+    X = validate_data(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 2954, in validate_data
+    out = check_array(X, input_name="X", **check_params)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 1105, in check_array
+    _assert_all_finite(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 120, in _assert_all_finite
+    _assert_all_finite_element_wise(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 169, in _assert_all_finite_element_wise
+    raise ValueError(msg_err)
+ValueError: Input X contains NaN.
+KMeans does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+[2026-09-22 11:21:10] waiting for data/.prepped
+[2026-09-22 11:21:10] data ready; starting branch for Qwen/Qwen2.5-VL-7B-Instruct on cuda:0
+[2026-09-22 11:21:10] probes already done; skipping
+[2026-09-22 11:21:10] STAGE taxonomy (per-model)
+/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/fingerprints.py:79: RuntimeWarning: invalid value encountered in divide
+  "p5_sink_stability": 1.0 - (mass.std(axis=0) / np.maximum(mass.mean(axis=0), 1e-8)),
+/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/taxonomy.py:27: RuntimeWarning: Mean of empty slice
+  mu = np.nanmean(X[m], axis=0)
+/usr/local/lib/python3.10/dist-packages/numpy/lib/_nanfunctions_impl.py:2019: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/taxonomy.py:27: RuntimeWarning: Mean of empty slice
+  mu = np.nanmean(X[m], axis=0)
+/usr/local/lib/python3.10/dist-packages/numpy/lib/_nanfunctions_impl.py:2019: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+{
+  "k": 3,
+  "silhouette": 0.16022705664019746,
+  "n_heads": 784,
+  "features": [
+    "p1_box_iou",
+    "p1_entropy",
+    "p1_mass_in_box",
+    "p1_pointing",
+    "p1_topk_prec",
+    "p3_cond_kld",
+    "p5_head_entropy",
+    "p5_sink16",
+    "p5_sink_stability",
+    "p6_occluded_mass",
+    "p6_reroute_kld",
+    "p8_mass_when_correct"
+  ],
+  "role_counts": {
+    "unassigned": 498,
+    "reroute": 91,
+    "sink": 103,
+    "grounding": 92
+  }
+}

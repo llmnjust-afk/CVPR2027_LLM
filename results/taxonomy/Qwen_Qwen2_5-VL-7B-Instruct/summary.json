@@ -1,0 +1,25 @@
+{
+  "k": 3,
+  "silhouette": 0.16022705664019746,
+  "n_heads": 784,
+  "features": [
+    "p1_box_iou",
+    "p1_entropy",
+    "p1_mass_in_box",
+    "p1_pointing",
+    "p1_topk_prec",
+    "p3_cond_kld",
+    "p5_head_entropy",
+    "p5_sink16",
+    "p5_sink_stability",
+    "p6_occluded_mass",
+    "p6_reroute_kld",
+    "p8_mass_when_correct"
+  ],
+  "role_counts": {
+    "unassigned": 498,
+    "reroute": 91,
+    "sink": 103,
+    "grounding": 92
+  }
+}

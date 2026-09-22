@@ -1,0 +1,23 @@
+[2026-09-22 11:16:08] re-running sink for llava-hf/llava-1.5-7b-hf on cuda:1
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]Fetching 3 files: 100%|██████████| 3/3 [00:00<00:00, 860.02it/s]
+Loading weights:   0%|          | 0/686 [00:00<?, ?it/s]Loading weights:   5%|▍         | 31/686 [00:00<00:02, 255.85it/s]Loading weights:   8%|▊         | 57/686 [00:00<00:03, 168.06it/s]Loading weights:  11%|█         | 76/686 [00:00<00:03, 153.10it/s]Loading weights:  13%|█▎        | 92/686 [00:00<00:03, 149.17it/s]Loading weights:  16%|█▌        | 110/686 [00:00<00:04, 139.59it/s]Loading weights:  18%|█▊        | 125/686 [00:00<00:04, 130.95it/s]Loading weights:  20%|██        | 139/686 [00:00<00:04, 128.19it/s]Loading weights:  22%|██▏       | 154/686 [00:01<00:03, 133.05it/s]Loading weights:  24%|██▍       | 168/686 [00:01<00:04, 119.78it/s]Loading weights:  27%|██▋       | 182/686 [00:01<00:04, 124.37it/s]Loading weights:  28%|██▊       | 195/686 [00:01<00:03, 124.21it/s]Loading weights:  31%|███       | 212/686 [00:01<00:03, 136.54it/s]Loading weights:  33%|███▎      | 226/686 [00:01<00:03, 126.44it/s]Loading weights:  35%|███▌      | 243/686 [00:01<00:03, 137.16it/s]Loading weights:  38%|███▊      | 258/686 [00:01<00:03, 136.22it/s]Loading weights:  40%|███▉      | 272/686 [00:02<00:03, 119.98it/s]Loading weights:  42%|████▏     | 291/686 [00:02<00:02, 137.93it/s]Loading weights:  79%|███████▉  | 544/686 [00:02<00:00, 779.13it/s]Loading weights: 100%|██████████| 686/686 [00:02<00:00, 300.14it/s]
+model=llava-hf/llava-1.5-7b-hf layers=32 heads=32 family=llava
+DONE outputs/raw/llava-hf_llava-1_5-7b-hf
+[2026-09-22 11:17:05] sink done; resuming pipeline
+[2026-09-22 11:17:05] waiting for data/.prepped
+[2026-09-22 11:17:05] data ready; starting branch for llava-hf/llava-1.5-7b-hf on cuda:1
+[2026-09-22 11:17:05] probes already done; skipping
+[2026-09-22 11:17:05] STAGE taxonomy (per-model)
+Traceback (most recent call last):
+  File "/data/lab/CVPR2027_LLM/scripts/run_taxonomy.py", line 64, in <module>
+    results[mid] = process_model(raw_dir, os.path.join(args.out_root, s), probes)
+  File "/data/lab/CVPR2027_LLM/scripts/run_taxonomy.py", line 32, in process_model
+    plot_embedding(cl["Z"], cl["labels"], layer_ids,
+  File "/data/lab/CVPR2027_LLM/scripts/../src/headatlas/metrics/taxonomy.py", line 79, in plot_embedding
+    plt.colorbar(sc, name="cluster")
+  File "/usr/local/lib/python3.10/dist-packages/matplotlib/pyplot.py", line 2533, in colorbar
+    ret = gcf().colorbar(mappable, cax=cax, ax=ax, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/matplotlib/figure.py", line 1315, in colorbar
+    cb = cbar.Colorbar(cax, mappable, **{
+TypeError: Colorbar.__init__() got an unexpected keyword argument 'name'
